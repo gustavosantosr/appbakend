@@ -12,6 +12,7 @@ func GetConsolidados() ([]*models.Consolidados, error) {
 	// Verificar la conexión a la base de datos
 	err := Conexion.Ping()
 	if err != nil {
+		logger.WriteLogger(fmt.Sprintf("Error al ejecutar la consulta: %+v", err.Error()))
 		logger.WriteLogger(fmt.Sprintf("%+v", err.Error()))
 		return nil, err
 	}

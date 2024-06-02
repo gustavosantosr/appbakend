@@ -6,13 +6,17 @@ import (
 	"os"
 
 	"github.com/gorilla/mux"
+	"github.com/gustavosantosr/twittor/middlew"
+	"github.com/gustavosantosr/twittor/routers"
 	"github.com/rs/cors"
 )
 
 /*Manejadores manejador de urls*/
 func Manejadores() {
 	router := mux.NewRouter()
-	//router.HandleFunc("/registro",middlew.ChequeoBD(routers.Registro)).Methods("POST")
+	/*EndPoints Terminados*/
+	router.HandleFunc("/getdocentes", routers.GetDocentes).Methods("GET")
+	router.HandleFunc("/getproducto", middlew.ChequeoBD(routers.GetDocentes)).Methods("GET")
 
 	PORT := os.Getenv("PORT")
 	if PORT == "" {
