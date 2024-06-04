@@ -10,8 +10,12 @@ type Estudiante struct {
 	Nombre          string
 	Direccion       string
 	Email           string
-	CodigoPrograma  string
-	Ety             string
-	Programa        string
-	Edad            sql.NullInt16
+	Programas       []Programa
+	Edad            sql.NullInt64
+}
+
+type Programa struct {
+	CodigoPrograma string
+	Programa       string
+	Ety            sql.NullInt64
 }
