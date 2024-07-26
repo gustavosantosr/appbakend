@@ -1,0 +1,13 @@
+  
+  
+### Listado programas activos
+GET  http://localhost:8080/getprogramas  HTTP/1.1
+
+### Listado programas por Emplid
+GET  http://localhost:8080/getprogramasbyemplid?Emplid=0000000081 HTTP/1.1
+
+### Listado docentes
+GET  http://localhost:8080/getdocentes HTTP/1.1
+
+### Listado materias actuales
+GET  http://localhost:8080/getmaterias HTTP/1.1
