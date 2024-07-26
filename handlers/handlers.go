@@ -18,10 +18,13 @@ func Manejadores() {
 	/*EndPoints Estudiantes*/
 	router.HandleFunc("/getestudiantes", routers.GetEstudiantes).Methods("GET")
 	router.HandleFunc("/getestudiantebyemail", routers.GetEstudianteByEmail).Methods("GET")
-	router.HandleFunc("/getmaterias", routers.GetMaterias).Methods("GET")
+
 	/*Programas*/
 	router.HandleFunc("/getprogramas", routers.GetProgramas).Methods("GET")
 	router.HandleFunc("/getprogramasbyemplid", routers.GetProgramabyEmplid).Methods("GET")
+	/*Materias*/
+	router.HandleFunc("/getmaterias", routers.GetMaterias).Methods("GET")
+	router.HandleFunc("/getmateriasbyemplid", routers.GetMateriabyEmplid).Methods("GET")
 	PORT := os.Getenv("PORT")
 	if PORT == "" {
 		PORT = "8080"

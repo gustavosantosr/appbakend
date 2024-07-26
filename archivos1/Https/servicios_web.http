@@ -1,0 +1,18 @@
+  
+  
+### Listado programas activos
+GET http://129.213.35.154:8080/getprogramas  HTTP/1.1
+
+### Listado programas por Emplid
+GET http://129.213.35.154:8080/getprogramasbyemplid?Emplid=0000000081 HTTP/1.1
+
+### Listado docentes
+GET http://129.213.35.154:8080/getdocentes HTTP/1.1
+
+### Listado materias actuales
+GET http://129.213.35.154:8080/getmaterias HTTP/1.1
+
+### Listado estudiantes actuales
+GET http://129.213.35.154:8080/getestudiantes HTTP/1.1
+### Listado estudiantes actuales
+GET http://129.213.35.154:8080/getestudiantebyemail?Email=luisa.271428024@ucaldas.edu.co HTTP/1.1
