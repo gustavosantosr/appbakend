@@ -18,6 +18,7 @@ func Manejadores() {
 	/*EndPoints Estudiantes*/
 	router.HandleFunc("/getestudiantes", routers.GetEstudiantes).Methods("GET")
 	router.HandleFunc("/getestudiantebyemail", routers.GetEstudianteByEmail).Methods("GET")
+	router.HandleFunc("/getmaterias", routers.GetMaterias).Methods("GET")
 
 	PORT := os.Getenv("PORT")
 	if PORT == "" {
