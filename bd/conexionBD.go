@@ -21,7 +21,8 @@ func ConectarBD() *sql.DB {
 	once.Do(func() {
 		//172.40.2.226
 		//Conexion, err = sql.Open("godror", "gasantosr/wr3eBjbECe@//172.40.2.226:1521/PRODELEC?&standaloneConnection=1&connectionClass=POOLED&max=6000")
-		Conexion, err = sql.Open("godror", "GS80819446/GS80819446@132.145.143.45:1521/CS92PROD.subnetpsprod03.ucaldas.oraclevcn.com")
+		//Conexion, err = sql.Open("godror", "GS80819446/GS80819446@132.145.143.45:1521/CS92PROD.subnetpsprod03.ucaldas.oraclevcn.com")
+		Conexion, err = sql.Open("godror", "GS80819446/GS80819446@132.145.143.45:1521/CS92LOAD.subnetpsprod03.ucaldas.oraclevcn.com")
 
 		if err != nil {
 			logger.WriteLogger(fmt.Sprintf("%+v", err.Error()))
