@@ -136,7 +136,7 @@ WHERE
 	return resultados, nil
 }
 
-func GetMateriasbyEmplid(emplid string) ([]*models.Materias, error) {
+func GetMateriasbyEmplid(emplid string, codprog string) ([]*models.Materias, error) {
 	err := Conexion.Ping()
 	if err != nil {
 		logger.WriteLogger(fmt.Sprintf("Error al ejecutar la consulta: %+v", err.Error()))
@@ -226,10 +226,11 @@ func GetMateriasbyEmplid(emplid string) ([]*models.Materias, error) {
 	    AND I.EFFDT = (SELECT MAX(I_ED.EFFDT) FROM SYSADM.PS_CRSE_CATALOG I_ED
 	                      WHERE I.CRSE_ID = I_ED.CRSE_ID
 	                        AND I_ED.EFFDT <= SYSDATE)
-	    AND A.EMPLID = :1`
+	    AND A.EMPLID = :1
+		AND A.ACAD_PROG = :2`
 
 	logger.WriteLogger(fmt.Sprintf("Error al ejecutar la consulta: %+v", query))
-	rows, err := Conexion.QueryContext(ctx, query, emplid)
+	rows, err := Conexion.QueryContext(ctx, query, emplid, codprog)
 	if err != nil {
 		logger.WriteLogger(fmt.Sprintf("Error al ejecutar la consulta: %+v", err.Error()))
 		return nil, err

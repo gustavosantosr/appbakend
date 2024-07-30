@@ -35,7 +35,13 @@ func GetMateriabyEmplid(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	Emplid := r.URL.Query().Get("Emplid")
-	respuesta, error := bd.GetMateriasbyEmplid(Emplid)
+	if r.URL.Query().Get("Emplid") == "" {
+		http.Error(w, "debe enviar el Codigo", http.StatusBadRequest)
+		return
+	}
+	Codprog := r.URL.Query().Get("CodProg")
+
+	respuesta, error := bd.GetMateriasbyEmplid(Emplid, Codprog)
 	if error != nil {
 		http.Error(w, "Error al leer los datos "+error.Error(), http.StatusBadRequest)
 		return
