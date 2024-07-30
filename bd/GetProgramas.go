@@ -77,6 +77,7 @@ func GetProgramasbyEmplid(t string) ([]*models.ProgramasbyEmplid, error) {
 TO_CHAR(A.ACAD_CAREER) as TipoCarrera, 
 TO_CHAR(A.PROG_STATUS) as Status, 
 TO_CHAR(B.ACAD_PLAN) as CodPlanAcademico, 
+ TO_CHAR(A.ACAD_PROG) as CodAcademicoPrograma,
 TO_CHAR(C.ETY_PROG_DESCR_LG) as ProgramaDescripcion,
 TO_CHAR(C.ETY_PROG_DURACION) AS ProgramaDuracion 
   FROM SYSADM.PS_ACAD_PROG A
@@ -125,6 +126,7 @@ TO_CHAR(C.ETY_PROG_DURACION) AS ProgramaDuracion
 			&item.TipoCarrera,
 			&item.Status,
 			&item.CodPlanAcademico,
+			&item.CodAcademicoPrograma,
 			&item.ProgramaDescripcion,
 			&item.ProgramaDuracion)
 		if err != nil {

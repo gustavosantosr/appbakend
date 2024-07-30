@@ -14,10 +14,11 @@ type Programas struct {
 
 /*Programas modelo de usuario*/
 type ProgramasbyEmplid struct {
-	Emplid              string
-	TipoCarrera         string
-	Status              string
-	CodPlanAcademico    string
-	ProgramaDescripcion string
-	ProgramaDuracion    string
+	Emplid               string
+	TipoCarrera          string
+	Status               string
+	CodPlanAcademico     string
+	CodAcademicoPrograma string
+	ProgramaDescripcion  string
+	ProgramaDuracion     string
 }
