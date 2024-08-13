@@ -136,7 +136,7 @@ WHERE
 	return resultados, nil
 }
 
-func GetMateriasbyEmplid(emplid string, codprog string) ([]*models.Materias, error) {
+func GetMateriasbyEmplid(emplid string, codprog string) ([]*models.Semestre, error) {
 	err := Conexion.Ping()
 	if err != nil {
 		logger.WriteLogger(fmt.Sprintf("Error al ejecutar la consulta: %+v", err.Error()))
@@ -156,7 +156,8 @@ func GetMateriasbyEmplid(emplid string, codprog string) ([]*models.Materias, err
 	    G.CRSE_ID as CursoId, 
 	    G.STRM as Strm, 
 	    G.CATALOG_NBR AS CatalogoNombre, 
-	    I.COURSE_TITLE_LONG as CursoNombre, 
+	    I.COURSE_TITLE_LONG as CursoNombre,
+		D.CRSE_GRADE_INPUT as NotaDefinitiva, 
 	    H.DESCRSHORT as CodigoSemestre
 	FROM 
 	    SYSADM.PS_ACAD_PROG A
@@ -227,7 +228,8 @@ func GetMateriasbyEmplid(emplid string, codprog string) ([]*models.Materias, err
 	                      WHERE I.CRSE_ID = I_ED.CRSE_ID
 	                        AND I_ED.EFFDT <= SYSDATE)
 	    AND A.EMPLID = :1
-		AND A.ACAD_PROG = :2`
+		AND A.ACAD_PROG = :2
+		order by H.DESCRSHORT desc`
 
 	logger.WriteLogger(fmt.Sprintf("Error al ejecutar la consulta: %+v", query))
 	rows, err := Conexion.QueryContext(ctx, query, emplid, codprog)
@@ -237,20 +239,36 @@ func GetMateriasbyEmplid(emplid string, codprog string) ([]*models.Materias, err
 	}
 	defer rows.Close()
 
-	var resultados []*models.Materias
+	semestresMap := make(map[string]*models.Semestre)
 
 	for rows.Next() {
 		var materia models.Materias
 		err := rows.Scan(&materia.TipoCarrera, &materia.CodAcademicoPrograma, &materia.CodAcademicoPlan,
 			&materia.DescripcionPrograma, &materia.CursoId, &materia.Strm, &materia.CatalogoNombre,
-			&materia.CursoNombre, &materia.CodigoSemestre)
+			&materia.CursoNombre, &materia.NotaDefinitiva, &materia.CodigoSemestre)
 		if err != nil {
-			fmt.Println("Error reading rows: " + err.Error())
-			return resultados, err
+			logger.WriteLogger(fmt.Sprintf("Error al leer las filas: %+v", err.Error()))
+			return nil, err
 		}
-		resultados = append(resultados, &materia)
 
+		// Verifica si el semestre ya existe en el mapa
+		if semestre, exists := semestresMap[materia.CodigoSemestre]; exists {
+			// Agrega la materia al semestre existente
+			semestre.Materias = append(semestre.Materias, &materia)
+		} else {
+			// Crea un nuevo semestre y agrega la materia
+			semestresMap[materia.CodigoSemestre] = &models.Semestre{
+				Numero:   materia.CodigoSemestre,
+				Materias: []*models.Materias{&materia},
+			}
+		}
 	}
-	return resultados, nil
+	// Convertir el mapa en un slice de semestres
+	var semestres []*models.Semestre
+	for _, semestre := range semestresMap {
+		semestres = append(semestres, semestre)
+	}
+
+	return semestres, nil
 
 }

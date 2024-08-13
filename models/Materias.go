@@ -11,5 +11,6 @@ type Materias struct {
 	CatalogoNombre       string
 	CursoId              string
 	CursoNombre          string
+	NotaDefinitiva       string
 	CodigoSemestre       string
 }
