@@ -27,6 +27,8 @@ func Manejadores() {
 	router.HandleFunc("/getmateriasbyemplid", routers.GetMateriabyEmplid).Methods("GET")
 	/*Horarios*/
 	router.HandleFunc("/gethorariosbyemplid", routers.GetHorariosbyEmplid).Methods("GET")
+	/*Autenticacion*/
+	router.HandleFunc("/getautenticacion", routers.GetAutenticacion).Methods("GET")
 	PORT := os.Getenv("PORT")
 	if PORT == "" {
 		PORT = "8080"

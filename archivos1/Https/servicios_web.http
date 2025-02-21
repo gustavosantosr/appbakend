@@ -1,7 +1,7 @@
   
   
 ### Listado programas activos
-GET http://129.213.35.154:8080/getprogramas  HTTP/1.1
+GET https://129.213.35.154:8080/getprogramas  HTTP/1.1
 
 ### Listado programas por Emplid
 GET http://129.213.35.154:8080/getprogramasbyemplid?Emplid=0000000081 HTTP/1.1
@@ -15,6 +15,12 @@ GET http://129.213.35.154:8080/getmaterias HTTP/1.1
 ### Listado estudiantes actuales
 GET http://129.213.35.154:8080/getestudiantes HTTP/1.1
 ### Listado estudiantes actuales
-GET http://129.213.35.154:8080/getestudiantebyemail?Email=luisa.271428024@ucaldas.edu.co HTTP/1.1
-### Listado materias por Emplid
-GET  http://129.213.35.154:8080/getmateriasbyemplid?Emplid=0000000081 HTTP/1.1
+GET http://129.213.35.154:8080/getestudiantebyemail?Email=gustavosantosr@gmail.com HTTP/1.1
+### listado de materias por emplid y programa en nodos
+
+GET  http://129.213.35.154:8080/getmateriasbyemplid?Emplid=0000000014&CodProg=206 HTTP/1.1
+
+### horarios por Emplid
+GET  http://129.213.35.154:8080/gethorariosbyemplid?Emplid=0000000014 HTTP/1.1
+
+ssh -i ~/.ssh/ssh-key-2024-04-12.key opc@129.213.35.154
