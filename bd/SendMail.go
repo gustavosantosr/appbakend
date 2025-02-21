@@ -13,9 +13,9 @@ func SendMail() {
 
 	// Configurar remitente, destinatario y asunto
 	m.SetHeader("From", "tuemail@tudominio.com") // Usa un email verificado en Mandrill
-	m.SetHeader("To", "destinatario@example.com")
-	m.SetHeader("Subject", "Correo de prueba con Mandrill")
-	m.SetBody("text/html", "<h1>Hola!</h1><p>Este es un correo enviado con Mandrill en Golang.</p>")
+	m.SetHeader("To", "gustavosantosr@gmail.com")
+	m.SetHeader("Subject", "Correo de prueba")
+	m.SetBody("text/html", "<h1>Hola!</h1><p>El codigo de seguridad para acceder al sistema es 111111g.</p>")
 
 	// Configurar el servidor SMTP de Mandrill
 	d := gomail.NewDialer("mail.drmonkey.co", 465, "email@drmonkey.co", "Admin4402!")
