@@ -22,7 +22,7 @@ func GetAutenticacion() ([]*models.Autenticacion, error) {
 
 	query := `
   SELECT * 
-  FROM PS_UCA_AUTHENTICATION_APP
+  FROM SYSADM.PS_UCA_AUTHENTICATION_APP
   `
 
 	// Ejecuta la consulta con el parámetro posicional
