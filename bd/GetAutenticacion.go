@@ -21,7 +21,7 @@ func GetAutenticacion() ([]*models.Autenticacion, error) {
 	defer cancel()
 
 	query := `
-  SELECT * FROM
+  SELECT * 
   FROM SYSADM.PS_UCA_AUTHENTICATION_APP
   `
 
