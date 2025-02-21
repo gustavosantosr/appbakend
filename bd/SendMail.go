@@ -18,7 +18,7 @@ func SendMail() {
 	m.SetBody("text/html", "<h1>Hola!</h1><p>Este es un correo enviado desde Golang.</p>")
 
 	// Configuración del servidor SMTP
-	d := gomail.NewDialer("smtp.gmail.com", 587, "gustavosantosr@gmail.com", "Gust2910!*")
+	d := gomail.NewDialer("smtp.gmail.com", 587, "appucaldas@gmail.com", "Admin4402!")
 
 	// Enviar el correo
 	if err := d.DialAndSend(m); err != nil {
