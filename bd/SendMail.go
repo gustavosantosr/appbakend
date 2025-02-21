@@ -11,14 +11,14 @@ func SendMail() {
 
 	m := gomail.NewMessage()
 
-	// Configuración del correo
-	m.SetHeader("From", "gustavosantosr@gmail.com")
-	m.SetHeader("To", "gustavosantosr@gmail.com")
-	m.SetHeader("Subject", "Correo de prueba")
-	m.SetBody("text/html", "<h1>Hola!</h1><p>Este es un correo enviado desde Golang.</p>")
+	// Configurar remitente, destinatario y asunto
+	m.SetHeader("From", "tuemail@tudominio.com") // Usa un email verificado en Mandrill
+	m.SetHeader("To", "destinatario@example.com")
+	m.SetHeader("Subject", "Correo de prueba con Mandrill")
+	m.SetBody("text/html", "<h1>Hola!</h1><p>Este es un correo enviado con Mandrill en Golang.</p>")
 
-	// Configuración del servidor SMTP
-	d := gomail.NewDialer("smtp.gmail.com", 587, "appucaldas@gmail.com", "Admin4402!")
+	// Configurar el servidor SMTP de Mandrill
+	d := gomail.NewDialer("mail.drmonkey.co", 465, "email@drmonkey.co", "Admin4402!")
 
 	// Enviar el correo
 	if err := d.DialAndSend(m); err != nil {
