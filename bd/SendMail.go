@@ -19,7 +19,7 @@ func SendMail() {
 
 	// Configurar el servidor SMTP de Mandrill
 	//d := gomail.NewDialer("mail.drmonkey.co", 465, "email@drmonkey.co", "Admin4402!")
-	d := gomail.NewDialer("smtp.mandrillapp.com", 587, "email@drmonkey.co", "md-AvpMklQ9xGOqLz1Etast_Q")
+	d := gomail.NewDialer("smtp.mandrillapp.com", 587, "email@drmonkey.co", "md-4A6FoxCfhFM7euMC4-WMyw")
 	// Enviar el correo
 	if err := d.DialAndSend(m); err != nil {
 		fmt.Println("Error al enviar el correo:", err)
