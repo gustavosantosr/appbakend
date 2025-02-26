@@ -21,7 +21,7 @@ func SendMail() {
 	//d := gomail.NewDialer("mail.drmonkey.co", 465, "email@drmonkey.co", "Admin4402!")
 	//d := gomail.NewDialer("mail.drmonkey.co", 465, "email@drmonkey.co", "Admin4402!")
 	//d := gomail.NewDialer("smtp.mandrillapp.com", 587, "email@drmonkey.co", "md-4A6FoxCfhFM7euMC4-WMyw")
-	d := gomail.NewDialer("smtp.gmail.com", 587, "notificaciones.app@tools.ucaldas.edu.co", "Notifica2025*")
+	d := gomail.NewDialer("smtp.office365.com", 587, "notificaciones.app@tools.ucaldas.edu.co", "Notifica2025*")
 	// Enviar el correo
 	if err := d.DialAndSend(m); err != nil {
 		fmt.Println("Error al enviar el correo:", err)
