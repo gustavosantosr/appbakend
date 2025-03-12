@@ -22,7 +22,7 @@ func SendMail() {
 	//d := gomail.NewDialer("mail.drmonkey.co", 465, "email@drmonkey.co", "Admin4402!")
 	//d := gomail.NewDialer("mail.drmonkey.co", 465, "email@drmonkey.co", "Admin4402!")
 	//d := gomail.NewDialer("smtp.mandrillapp.com", 587, "email@drmonkey.co", "md-4A6FoxCfhFM7euMC4-WMyw")
-	d := gomail.NewDialer("email-smtp.eu-west-1.amazonaws.com", 25, "AKIA3HHSGBZVMMVON5WR", "BLsNsqHZ7tEsUmdnsXSFcy+M8cq/Bx3ahMkL+R2nCcce")
+	d := gomail.NewDialer("smtp.gmail.com", 587, "poas.consulta.previa@gmail.com", "kkoo uqgi vkhe nzfo ")
 	d.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 	// Enviar el correo
 	if err := d.DialAndSend(m); err != nil {
