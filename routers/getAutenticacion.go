@@ -12,7 +12,7 @@ import (
 /*GetAutenticacion Leo los Apoyo */
 func GetAutenticacion(w http.ResponseWriter, r *http.Request) {
 
-	_, respuesta, correcto := bd.InsertAutenticacion()
+	respuesta, correcto := bd.GetAutenticacionEmail()
 	if correcto != nil {
 		logger.WriteLogger(fmt.Sprintf("%+v", correcto.Error()))
 		http.Error(w, "Error al leer los Apoyo", http.StatusBadRequest)
