@@ -84,7 +84,7 @@ LEFT JOIN SYSADM.PS_EMAIL_ADDRESSES C
     ON C.EMPLID = B.EMPLID 
 WHERE 
     C.PREF_EMAIL_FLAG = 'Y' 
-    AND B.PRIMARY_NID = 'Y';
+    AND B.PRIMARY_NID = 'Y'
   `
 
 	// Ejecuta la consulta con el parámetro posicional
