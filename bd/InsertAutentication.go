@@ -12,7 +12,7 @@ func InsertAutenticacion() (int64, bool, error) {
 	ChequeoConnection()
 	logger.WriteLogger("Insertando registro")
 
-	stmt, es := Conexion.Prepare("INSERT INTO SYSADM.PS_UCA_AUTHENTICATION_APP (DOCUMENT, CODE, REGISTRATION_DATE, STATE) VALUES (?, ?, ?, ?)")
+	stmt, es := Conexion.Prepare("INSERT INTO SYSADM.PS_UCA_AUTHENTICATION_APP (DOCUMENT, CODE, REGISTRATION_DATE, STATE) VALUES (:1, :2, :3, :4)")
 	if es != nil {
 		log.Fatal(fmt.Sprintf("Error al preparar la consulta: %+v", es))
 		return 0, false, es
