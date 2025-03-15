@@ -17,10 +17,17 @@ func GetAutenticacion() ([]*models.Autenticacion, error) {
 		logger.WriteLogger(fmt.Sprintf("%+v", err.Error()))
 		return nil, err
 	}
+	_, status, err := InsertAutenticacion()
+	if err != nil {
+		logger.WriteLogger(fmt.Sprintf("%+v", err.Error()))
+		logger.WriteLogger(fmt.Sprintf("%+v", status))
+
+	}
+
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 	SendMail()
-	InsertAutenticacion()
+
 	query := `
   SELECT * 
   FROM SYSADM.PS_UCA_AUTHENTICATION_APP
