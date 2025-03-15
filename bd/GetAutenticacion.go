@@ -20,6 +20,7 @@ func GetAutenticacion() ([]*models.Autenticacion, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 	SendMail()
+	InsertAutenticacion()
 	query := `
   SELECT * 
   FROM SYSADM.PS_UCA_AUTHENTICATION_APP
