@@ -59,7 +59,7 @@ func GetAutenticacion() ([]*models.Autenticacion, error) {
 }
 
 /*GetAutenticacionEmail end point items*/
-func GetAutenticacionEmail() ([]*models.Autenticacion, error) {
+func GetAutenticacionEmail() ([]*models.AutenticacionEmail, error) {
 	err := Conexion.Ping()
 	if err != nil {
 		log.Fatal(fmt.Sprintf("Error al ejecutar la consulta: %+v", err.Error()))
@@ -95,13 +95,14 @@ WHERE
 	}
 	defer rows.Close()
 
-	var resultados []*models.Autenticacion
+	var resultados []*models.AutenticacionEmail
 	for rows.Next() {
-		var item models.Autenticacion
+		var item models.AutenticacionEmail
 		err := rows.Scan(&item.DOCUMENT,
 			&item.CODE,
 			&item.REGISTRATION_DATE,
-			&item.STATE)
+			&item.STATE,
+			&item.EMAIL)
 		if err != nil {
 			fmt.Println("Error reading rows: " + err.Error())
 			return resultados, err
