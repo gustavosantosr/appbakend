@@ -3,6 +3,7 @@ package bd
 import (
 	"context"
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/gustavosantosr/twittor/logger"
@@ -61,8 +62,8 @@ func GetAutenticacion() ([]*models.Autenticacion, error) {
 func GetAutenticacionEmail() ([]*models.Autenticacion, error) {
 	err := Conexion.Ping()
 	if err != nil {
-		logger.WriteLogger(fmt.Sprintf("Error al ejecutar la consulta: %+v", err.Error()))
-		logger.WriteLogger(fmt.Sprintf("%+v", err.Error()))
+		log.Fatal(fmt.Sprintf("Error al ejecutar la consulta: %+v", err.Error()))
+		log.Fatal(fmt.Sprintf("%+v", err.Error()))
 		return nil, err
 	}
 
