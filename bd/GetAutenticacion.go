@@ -74,7 +74,8 @@ func GetAutenticacionEmail() ([]*models.AutenticacionEmail, error) {
 	query := `
     SELECT 
     A.DOCUMENT, 
-    A.CODE,  
+    A.CODE,
+	A.REGISTRATION_DATE,   
     A.STATE,
     C.EMAIL_ADDR
 FROM SYSADM.PS_UCA_AUTHENTICATION_APP A
