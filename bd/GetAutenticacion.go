@@ -90,6 +90,7 @@ WHERE
 	// Ejecuta la consulta con el parámetro posicional
 	rows, err := Conexion.QueryContext(ctx, query)
 	if err != nil {
+		log.Fatal(fmt.Sprintf("%+v", err.Error()))
 		return nil, err
 	}
 	defer rows.Close()
