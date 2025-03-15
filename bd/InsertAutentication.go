@@ -1,10 +1,16 @@
 package bd
 
+import (
+	"fmt"
+
+	"github.com/gustavosantosr/twittor/logger"
+)
+
 /*InsertAutenticacion EndPoint grabar salida*/
 func InsertAutenticacion() (int64, bool, error) {
 	ChequeoConnection()
-
-	stmt, es := Conexion.Prepare("insert into SYSADM.PS_UCA_AUTHENTICATION_APP (DOCUMENT, CODE, REGISTRATION_DATE, STATE  ) values(?, ?, ?, ?, ?)")
+	logger.WriteLogger(fmt.Sprintf("Insertando registro"))
+	stmt, es := Conexion.Prepare("insert into SYSADM.PS_UCA_AUTHENTICATION_APP (DOCUMENT, CODE, REGISTRATION_DATE, STATE  ) values(?, ?, ?, ?)")
 	if es != nil {
 		return 0, false, es
 
