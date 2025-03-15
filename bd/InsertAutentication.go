@@ -22,6 +22,7 @@ func InsertAutenticacion() (int64, bool, error) {
 		"1")
 
 	if er != nil {
+		logger.WriteLogger(fmt.Sprintf("Error al ejecutar la consulta: %+v", er.Error()))
 		return 0, false, er
 	}
 
