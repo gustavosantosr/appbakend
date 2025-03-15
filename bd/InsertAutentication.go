@@ -9,24 +9,27 @@ import (
 /*InsertAutenticacion EndPoint grabar salida*/
 func InsertAutenticacion() (int64, bool, error) {
 	ChequeoConnection()
-	logger.WriteLogger(fmt.Sprintf("Insertando registro"))
-	stmt, es := Conexion.Prepare("insert into SYSADM.PS_UCA_AUTHENTICATION_APP (DOCUMENT, CODE, REGISTRATION_DATE, STATE  ) values(?, ?, ?, ?)")
+	logger.WriteLogger("Insertando registro")
+
+	stmt, es := Conexion.Prepare("INSERT INTO SYSADM.PS_UCA_AUTHENTICATION_APP (DOCUMENT, CODE, REGISTRATION_DATE, STATE) VALUES (?, ?, ?, ?)")
 	if es != nil {
+		logger.WriteLogger(fmt.Sprintf("Error al preparar la consulta: %+v", es))
 		return 0, false, es
-
 	}
-	//fmt.Printf("grupo: %s\n", g.RazonSocial)
-	result, er := stmt.Exec("80919446",
-		"222222",
-		"2025-02-05T08:19:52-05:00",
-		"1")
+	defer stmt.Close() // Cerrar el statement para evitar fugas de memoria
 
+	result, er := stmt.Exec("80919446", "222222", "2025-02-05T08:19:52-05:00", "1")
 	if er != nil {
-		logger.WriteLogger(fmt.Sprintf("Error al ejecutar la consulta: %+v", er.Error()))
+		logger.WriteLogger(fmt.Sprintf("Error al ejecutar la consulta: %+v", er))
 		return 0, false, er
 	}
 
-	resultado, _ := result.LastInsertId()
+	resultado, err := result.LastInsertId()
+	if err != nil {
+		logger.WriteLogger(fmt.Sprintf("Error al obtener LastInsertId: %+v", err))
+		return 0, false, err
+	}
 
+	logger.WriteLogger(fmt.Sprintf("Registro insertado con ID: %d", resultado))
 	return resultado, true, nil
 }
