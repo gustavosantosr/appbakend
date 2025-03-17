@@ -20,7 +20,7 @@ func InsertAutenticacion() (int64, bool, error) {
 	}
 	defer stmt.Close() // Cerrar el statement para evitar fugas de memoria
 
-	_, er := stmt.Exec("80919442", "2222222", "2025-02-05T08:19:52-05:00", "2")
+	_, er := stmt.Exec("80919442", "222212", "2025-02-05T08:19:52-05:00", "2")
 	if er != nil {
 		log.Fatal(fmt.Sprintf("Error al ejecutar la consulta: %+v", er))
 		return 0, false, er
