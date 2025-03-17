@@ -26,6 +26,6 @@ func InsertAutenticacion() (int64, bool, error) {
 		return 0, false, er
 	}
 
-	logger.WriteLogger(fmt.Sprintf("Registro insertado con ID: %d", lastID))
+	//logger.WriteLogger(fmt.Sprintf("Registro insertado con ID: %d", lastID))
 	return 0, true, nil
 }
