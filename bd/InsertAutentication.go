@@ -1,7 +1,6 @@
 package bd
 
 import (
-	"database/sql"
 	"fmt"
 	"log"
 
@@ -26,14 +25,7 @@ func InsertAutenticacion() (int64, bool, error) {
 		log.Fatal(fmt.Sprintf("Error al ejecutar la consulta: %+v", er))
 		return 0, false, er
 	}
-	var lastID int64 // Variable para almacenar el ID generado
-	// Ejecutar la consulta y capturar el ID insertado
-	err := stmt.QueryRow("80919446", "222222", "2025-02-05 08:19:52", "1", sql.Out{Dest: &lastID}).Scan(&lastID)
-	if err != nil {
-		log.Println(fmt.Sprintf("Error al ejecutar la consulta: %+v", err))
-		return 0, false, err
-	}
 
 	logger.WriteLogger(fmt.Sprintf("Registro insertado con ID: %d", lastID))
-	return lastID, true, nil
+	return 0, true, nil
 }
