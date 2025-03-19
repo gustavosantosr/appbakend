@@ -1,7 +1,7 @@
   
   
 ### Listado programas activos
-GET https://129.213.35.154:8080/getprogramas  HTTP/1.1
+GET http://129.213.35.154:8080/getprogramas  HTTP/1.1
 
 ### Listado programas por Emplid
 GET http://129.213.35.154:8080/getprogramasbyemplid?Emplid=0000000081 HTTP/1.1
@@ -23,4 +23,41 @@ GET  http://129.213.35.154:8080/getmateriasbyemplid?Emplid=0000000014&CodProg=20
 ### horarios por Emplid
 GET  http://129.213.35.154:8080/gethorariosbyemplid?Emplid=0000000014 HTTP/1.1
 
+### horarios por Emplid
+GET  http://129.213.35.154:8080/getautenticacion HTTP/1.1
+### horarios por Emplid
+GET  http://129.213.35.154:8080/getautenticacionTotal HTTP/1.1
+
+### horarios por Emplid
+GET  http://129.213.35.154:8080/getautenticacion?Code=1053846544 HTTP/1.1
+### horarios por Emplid
+GET  http://129.213.35.154:8080/getautenticacionbycode?Code=1053846544&Document=111111 HTTP/1.1
+
+### horarios por Emplid
+GET  http://localhost:8080/gethorariosbyemplid?Emplid=0000000014 HTTP/1.1
+
+
+###
+
+curl -X POST https://login.microsoftonline.com/371179b5-c8a0-43be-8083-95bab26bc650/oauth2/v2.0/token \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "grant_type=client_credentials" \
+  -d "client_id=83c9d1f8-9add-43de-8e29-24d6643e239d" \
+  -d "client_secret=af38Q~PhM-9~ioe-1MiCPGAgDlvUC3RXyPs~YcmO" \
+  -d "scope=https://graph.microsoft.com/.default"
+
+### horarios por Emplid
+
+curl -X GET "https://api.powerbi.com/v1.0/myorg/reports" \
+  -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJub25jZSI6InYzelYwb2FEbTdZYktmWVJlUHdoS0JOaHpBYnNoUHpha05qVGYxQzFmTmciLCJhbGciOiJSUzI1NiIsIng1dCI6ImltaTBZMnowZFlLeEJ0dEFxS19UdDVoWUJUayIsImtpZCI6ImltaTBZMnowZFlLeEJ0dEFxS19UdDVoWUJUayJ9.eyJhdWQiOiJodHRwczovL2dyYXBoLm1pY3Jvc29mdC5jb20iLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC8zNzExNzliNS1jOGEwLTQzYmUtODA4My05NWJhYjI2YmM2NTAvIiwiaWF0IjoxNzQwNTQ5ODI3LCJuYmYiOjE3NDA1NDk4MjcsImV4cCI6MTc0MDU1MzcyNywiYWlvIjoiazJSZ1lBamIySFh4bjI2TDhFTXBXWlorL2Q1VUFBPT0iLCJhcHBfZGlzcGxheW5hbWUiOiJUYWxlbnRvIEh1bWFubyBCSSBEYXNoYm9hcmQiLCJhcHBpZCI6IjgzYzlkMWY4LTlhZGQtNDNkZS04ZTI5LTI0ZDY2NDNlMjM5ZCIsImFwcGlkYWNyIjoiMSIsImlkcCI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0LzM3MTE3OWI1LWM4YTAtNDNiZS04MDgzLTk1YmFiMjZiYzY1MC8iLCJpZHR5cCI6ImFwcCIsIm9pZCI6IjgxNjhkMWQzLWFiMzUtNDgxZi1hODEzLWNhNmUxOTZlZjViMSIsInJoIjoiMS5BUThBdFhrUk42REl2a09BZzVXNnNtdkdVQU1BQUFBQUFBQUF3QUFBQUFBQUFBQVBBQUFQQUEuIiwic3ViIjoiODE2OGQxZDMtYWIzNS00ODFmLWE4MTMtY2E2ZTE5NmVmNWIxIiwidGVuYW50X3JlZ2lvbl9zY29wZSI6IlNBIiwidGlkIjoiMzcxMTc5YjUtYzhhMC00M2JlLTgwODMtOTViYWIyNmJjNjUwIiwidXRpIjoiMEN6WnIxMkQ3MDJBc2RtYm1SSWtBQSIsInZlciI6IjEuMCIsIndpZHMiOlsiMDk5N2ExZDAtMGQxZC00YWNiLWI0MDgtZDVjYTczMTIxZTkwIl0sInhtc19pZHJlbCI6IjcgNCIsInhtc190Y2R0IjoxNDQzNDUzNjQ5fQ.IsD8x5LVRGqTla2Y_9L83JK0aEzp6bZ_4lQqcpLCJvN83TNwcPk4APqoPZSCrvG9juA3cyto8NYqiIoddyPkHo_QBg5beqdB2oPVEXMOx8nmEyPcArOJZ-iWM9RLRXZMJuTGdJ2OiOkcSkm_pnST6ix4mgVe3suaVdddgopf4hRFjjVj7hZr3S7qmr18gvfSQRMJPprtXu0ApYLhCTcN8zcUIbeg3qgymffGL9T5OKU-9KRnrXUk_tB-fN_AbK5LHArJIsv-jbnyi0vMQihJuyksdZsbeHe5iDierz9vxW4A4iTsoTOaS0KNk4bf8nWhaqkrNuoJC5QHb8DwWwI3vA"
+
+###
+CURL -X GET "https://api.yourpayroll.com.au/api/v2/business/400805/payrun/3955319/earningslines/8471118" -u "ev2UmtvTDBBdU1zOHdkdk1aeXN0ZGplaWtXUVhQc1JmYXRGbWVTUFZnVE1QQlR2QzdPYlZ1eEIvNHJUQkJReE1McQ"
+
+Usuario VPN: gustavo.santos
+Clave VPN: Jr0drG3z23
+
 ssh -i ~/.ssh/ssh-key-2024-04-12.key opc@129.213.35.154
+###
+
+GET https://fa-portalinformacion-prod.azurewebsites.net/api/Dominio/ConsultarTablaDominioRegistrosExterno?IdTablaDominio=21&code=2nu7W9ktZf3O-UV7Jrc0QgUrTb-dBgTrEkJQsfQpASGXAzFu9tH-9A== HTTP/1.1

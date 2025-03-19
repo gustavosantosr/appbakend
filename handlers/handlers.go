@@ -13,6 +13,7 @@ import (
 /*Manejadores manejador de urls*/
 func Manejadores() {
 	router := mux.NewRouter()
+
 	/*EndPoints Docentes*/
 	router.HandleFunc("/getdocentes", routers.GetDocentes).Methods("GET")
 	/*EndPoints Estudiantes*/
@@ -31,10 +32,21 @@ func Manejadores() {
 	router.HandleFunc("/getautenticacion", routers.GetAutenticacion).Methods("GET")
 	router.HandleFunc("/getautenticacionTotal", routers.GetAutenticacionTotal).Methods("GET")
 	router.HandleFunc("/getautenticacionbycode", routers.GetAutenticacionbyCode).Methods("GET")
+
+	// Configuración más específica de CORS
+	corsHandler := cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"}, // Permite cualquier origen
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders:   []string{"Content-Type", "Authorization"},
+		AllowCredentials: true,
+	})
+
 	PORT := os.Getenv("PORT")
 	if PORT == "" {
 		PORT = "8080"
 	}
-	handler := cors.AllowAll().Handler(router)
+
+	handler := corsHandler.Handler(router)
+	log.Println("Servidor corriendo en el puerto", PORT)
 	log.Fatal(http.ListenAndServe(":"+PORT, handler))
 }

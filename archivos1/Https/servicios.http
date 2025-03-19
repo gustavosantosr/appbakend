@@ -28,3 +28,12 @@ GET  http://localhost:8080/getmateriasbyemplid?Emplid=0000000014&CodProg=206 HTT
 
 ### horarios por Emplid
 GET  http://localhost:8080/gethorariosbyemplid?Emplid=0000000014 HTTP/1.1
+
+
+String FROM = "elecciones@ucaldas.edu.co";
+                        String FROMNAME = "Elecciones Universidad de Caldas";
+                        // String TO = "diagama4@gmail.com";
+                        String SMTP_USERNAME = "AKIA3HHSGBZVMMVON5WR";
+                        String SMTP_PASSWORD = "BLsNsqHZ7tEsUmdnsXSFcy+M8cq/Bx3ahMkL+R2nCcce";
+                        String CONFIGSET = "ConfigSet";
+                        String HOST = "email-smtp.eu-west-1.amazonaws.com";
