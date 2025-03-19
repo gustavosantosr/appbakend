@@ -29,7 +29,7 @@ func Manejadores() {
 	router.HandleFunc("/gethorariosbyemplid", routers.GetHorariosbyEmplid).Methods("GET")
 	/*Autenticacion*/
 	router.HandleFunc("/getautenticacion", routers.GetAutenticacion).Methods("GET")
-	router.HandleFunc("/getautenticacionTotal", routers.GetAutenticacion).Methods("GET")
+	router.HandleFunc("/getautenticacionTotal", routers.GetAutenticacionTotal).Methods("GET")
 	router.HandleFunc("/getautenticacionbycode", routers.GetAutenticacionbyCode).Methods("GET")
 	PORT := os.Getenv("PORT")
 	if PORT == "" {
