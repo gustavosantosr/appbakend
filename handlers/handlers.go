@@ -45,8 +45,15 @@ func Manejadores() {
 	if PORT == "" {
 		PORT = "8080"
 	}
-
+	// Rutas de los certificados
+	certFile := "/etc/ssl/certs/wildcard2024.crt"
+	keyFile := "/etc/pki/tls/private/wildcard2024.key"
 	handler := corsHandler.Handler(router)
-	log.Println("Servidor corriendo en el puerto", PORT)
-	log.Fatal(http.ListenAndServe(":"+PORT, handler))
+	err := http.ListenAndServeTLS(":10443", certFile, keyFile, handler)
+
+	if err != nil {
+		log.Fatal("Error al iniciar servidor HTTPS:", err)
+	}
+	//log.Println("Servidor corriendo en el puerto", PORT)
+	//log.Fatal(http.ListenAndServe(":"+PORT, handler))
 }
