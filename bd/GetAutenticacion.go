@@ -15,6 +15,9 @@ type AutenticacionEmail struct {
 	Email string
 	Code  string
 }
+type AutenticacionUsuario struct {
+	Email string
+}
 
 /*GetAutenticacion end point items*/
 func GetAutenticacion() ([]*models.Autenticacion, error) {
@@ -129,20 +132,20 @@ func GetEmailAndCode(document string) (*AutenticacionEmail, error) {
 
 	// Query SQL con un parámetro
 	query := `
-    SELECT 
-    A.CODE,
-    C.EMAIL_ADDR
-FROM SYSADM.PS_UCA_AUTHENTICATION_APP A
-LEFT JOIN SYSADM.PS_PERS_NID B 
-    ON B.NATIONAL_ID = A.DOCUMENT
-LEFT JOIN SYSADM.PS_EMAIL_ADDRESSES C 
-    ON C.EMPLID = B.EMPLID 
-WHERE 
-    A.DOCUMENT = :1
-    AND C.PREF_EMAIL_FLAG = 'Y' 
-    AND B.PRIMARY_NID = 'Y'
-ORDER BY A.REGISTRATION_DATE DESC
-FETCH FIRST 1 ROW ONLY`
+		SELECT 
+		A.CODE,
+		C.EMAIL_ADDR
+	FROM SYSADM.PS_UCA_AUTHENTICATION_APP A
+	LEFT JOIN SYSADM.PS_PERS_NID B 
+		ON B.NATIONAL_ID = A.DOCUMENT
+	LEFT JOIN SYSADM.PS_EMAIL_ADDRESSES C 
+		ON C.EMPLID = B.EMPLID 
+	WHERE 
+		A.DOCUMENT = :1
+		AND C.PREF_EMAIL_FLAG = 'Y' 
+		AND B.PRIMARY_NID = 'Y'
+	ORDER BY A.REGISTRATION_DATE DESC
+	FETCH FIRST 1 ROW ONLY`
 
 	// Variables para almacenar los valores retornados
 	var result AutenticacionEmail
@@ -159,5 +162,54 @@ FETCH FIRST 1 ROW ONLY`
 	}
 	log.Printf("codigo: %v", result.Code)
 	SendMail(result.Code)
+	return &result, nil
+}
+
+// GetEmailByCredentials obtiene el correo electrónico basado en usuario y contraseña.
+func GetEmailByCredentials(username, password string) (*AutenticacionUsuario, error) {
+	// Verificar conexión a la base de datos
+	err := Conexion.Ping()
+	if err != nil {
+		log.Fatalf("Error al conectar con la base de datos: %v", err)
+		return nil, err
+	}
+
+	// Definir contexto con timeout
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
+
+	// Query SQL para obtener el correo electrónico basado en usuario y contraseña
+	query := `
+		SELECT 
+		A.CODE,
+		C.EMAIL_ADDR
+	FROM SYSADM.PS_UCA_AUTHENTICATION_APP A
+	LEFT JOIN SYSADM.PS_PERS_NID B 
+		ON B.NATIONAL_ID = A.DOCUMENT
+	LEFT JOIN SYSADM.PS_EMAIL_ADDRESSES C 
+		ON C.EMPLID = B.EMPLID 
+	WHERE 
+		A.DOCUMENT = :1
+		AND A.CODE = :2
+		AND C.PREF_EMAIL_FLAG = 'Y' 
+		AND B.PRIMARY_NID = 'Y'
+	ORDER BY A.REGISTRATION_DATE DESC
+	FETCH FIRST 1 ROW ONLY`
+
+	// Variable para almacenar el correo electrónico
+	var result AutenticacionUsuario
+
+	// Ejecutar la consulta
+	err = Conexion.QueryRowContext(ctx, query, username, password).Scan(&result.Email)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			// No se encontró un resultado
+			return nil, fmt.Errorf("usuario o contraseña incorrectos")
+		}
+		log.Printf("Error ejecutando la consulta: %v", err)
+		return nil, err
+	}
+
+	log.Printf("Correo encontrado: %v", result.Email)
 	return &result, nil
 }
