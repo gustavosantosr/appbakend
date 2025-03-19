@@ -205,6 +205,8 @@ func GetEmailByCredentials(code, document string) (*AutenticacionUsuario, error)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			// No se encontró un resultado
+			log.Printf("Error ejecutando la consulta: %v", code)
+			log.Printf("Error ejecutando la consulta: %v", document)
 			return nil, fmt.Errorf("usuario o contraseña incorrectos")
 		}
 		log.Printf("Error ejecutando la consulta: %v", err)
