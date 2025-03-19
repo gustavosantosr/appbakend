@@ -46,10 +46,10 @@ func Manejadores() {
 		PORT = "8080"
 	}
 	// Rutas de los certificados
-	certFile := "/etc/ssl/certs/wildcard2024.crt"
-	keyFile := "/etc/pki/tls/private/wildcard2024.key"
+	//certFile := "/etc/ssl/certs/wildcard2024.crt"
+	//keyFile := "/etc/pki/tls/private/wildcard2024.key"
 	handler := corsHandler.Handler(router)
-	err := http.ListenAndServeTLS(":10443", certFile, keyFile, handler)
+	err := http.ListenAndServeTLS(":443", "server.crt", "server.key", handler)
 
 	if err != nil {
 		log.Fatal("Error al iniciar servidor HTTPS:", err)
