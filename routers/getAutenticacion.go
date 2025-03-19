@@ -3,6 +3,7 @@ package routers
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/gustavosantosr/twittor/bd"
@@ -15,6 +16,7 @@ func GetAutenticacion(w http.ResponseWriter, r *http.Request) {
 	respuesta, correcto := bd.GetEmailAndCode("80819446")
 	if correcto != nil {
 		logger.WriteLogger(fmt.Sprintf("%+v", correcto.Error()))
+		log.Fatal(fmt.Sprintf("%+v", correcto.Error()))
 		http.Error(w, "Error al leer los Apoyo", http.StatusBadRequest)
 		return
 	}
