@@ -29,8 +29,8 @@ func main() {
 	keyFile := "/etc/pki/tls/private/wildcard2024.key"
 
 	// Iniciar el servidor HTTPS
-	log.Println("Servidor HTTPS corriendo en https://0.0.0.0:443")
-	err := http.ListenAndServeTLS(":443", certFile, keyFile, nil)
+	log.Println("Servidor HTTPS corriendo en https://0.0.0.0:8080")
+	err := http.ListenAndServeTLS(":8080", certFile, keyFile, nil)
 	if err != nil {
 		log.Fatal("Error al iniciar servidor HTTPS:", err)
 	}
