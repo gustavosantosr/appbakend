@@ -2,40 +2,36 @@ package main
 
 import (
 	"fmt"
-
+	"log"
+	"net/http"
 	"runtime"
-	"sync"
 
 	_ "github.com/godror/godror"
 	"github.com/gustavosantosr/twittor/bd"
 	"github.com/gustavosantosr/twittor/handlers"
 )
 
-var wg, wg2, wg3, wg4 sync.WaitGroup
-
 func main() {
-
+	// Conectar a la base de datos
 	bd.ConectarBD()
+
+	// Información del sistema
 	fmt.Println("OS\t", runtime.GOOS)
 	fmt.Println("ARCHITECTURE\t", runtime.GOARCH)
 	fmt.Println("CPUS\t", runtime.NumCPU())
-	fmt.Println("Gorutines\t", runtime.NumGoroutine())
+	fmt.Println("Goroutines\t", runtime.NumGoroutine())
 
-	//pruebas, err := bd.GetConsolidados()
-	//if err != nil {
-	//	fmt.Println("Error al obtener consolidados:", err)
-	//	return
-	//}
-
-	//fmt.Printf("%+v\n", pruebas)
+	// Iniciar manejadores de la API
 	handlers.Manejadores()
 
-	//pruebas, err := bd.GetConsolidados()
-	//if err != nil {
-	//	fmt.Println("Error al obtener consolidados:", err)
-	//	return
-	//}
+	// Rutas de los certificados
+	certFile := "/etc/ssl/certs/wildcard2024.crt"
+	keyFile := "/etc/pki/tls/private/wildcard2024.key"
 
-	//	fmt.Printf("%+v\n", pruebas)
-
+	// Iniciar el servidor HTTPS
+	log.Println("Servidor HTTPS corriendo en https://0.0.0.0:443")
+	err := http.ListenAndServeTLS(":443", certFile, keyFile, nil)
+	if err != nil {
+		log.Fatal("Error al iniciar servidor HTTPS:", err)
+	}
 }
