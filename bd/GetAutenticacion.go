@@ -2,6 +2,7 @@ package bd
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
 	"log"
 	"time"
@@ -9,6 +10,11 @@ import (
 	"github.com/gustavosantosr/twittor/logger"
 	"github.com/gustavosantosr/twittor/models"
 )
+
+type AutenticacionEmail struct {
+	Email string
+	Code  string
+}
 
 /*GetAutenticacion end point items*/
 func GetAutenticacion() ([]*models.Autenticacion, error) {
@@ -70,7 +76,6 @@ func GetAutenticacionEmail() ([]*models.AutenticacionEmail, error) {
 
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
-	SendMail()
 
 	query := `
     SELECT 
@@ -113,4 +118,51 @@ WHERE
 
 	}
 	return resultados, nil
+}
+
+// GetEmailAndCode obtiene el correo y el código basado en el documento
+func GetEmailAndCode(document string) (*AutenticacionEmail, error) {
+	// Verificar conexión a la base de datos
+	err := Conexion.Ping()
+	if err != nil {
+		log.Fatalf("Error al conectar con la base de datos: %v", err)
+		return nil, err
+	}
+
+	// Definir contexto con timeout
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
+
+	// Query SQL con un parámetro
+	query := `
+    SELECT 
+    A.CODE,
+    C.EMAIL_ADDR
+FROM SYSADM.PS_UCA_AUTHENTICATION_APP A
+LEFT JOIN SYSADM.PS_PERS_NID B 
+    ON B.NATIONAL_ID = A.DOCUMENT
+LEFT JOIN SYSADM.PS_EMAIL_ADDRESSES C 
+    ON C.EMPLID = B.EMPLID 
+WHERE 
+    A.DOCUMENT = :1
+    AND C.PREF_EMAIL_FLAG = 'Y' 
+    AND B.PRIMARY_NID = 'Y'
+ORDER BY A.REGISTRATION_DATE DESC
+FETCH FIRST 1 ROW ONLY`
+
+	// Variables para almacenar los valores retornados
+	var result AutenticacionEmail
+
+	// Ejecutar la consulta con el documento como parámetro
+	err = Conexion.QueryRowContext(ctx, query, document).Scan(&result.Code, &result.Email)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			// No se encontró un resultado
+			return nil, fmt.Errorf("no se encontraron datos para el documento %s", document)
+		}
+		log.Printf("Error ejecutando la consulta: %v", err)
+		return nil, err
+	}
+	SendMail(result.Code)
+	return &result, nil
 }

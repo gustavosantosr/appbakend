@@ -8,7 +8,7 @@ import (
 )
 
 /*SendMail end point items*/
-func SendMail() {
+func SendMail(code string) {
 
 	m := gomail.NewMessage()
 
@@ -16,7 +16,8 @@ func SendMail() {
 	m.SetHeader("From", "email@drmonkey.co") // Usa un email verificado en Mandrill
 	m.SetHeader("To", "gustavosantosr@gmail.com")
 	m.SetHeader("Subject", "Correo de prueba")
-	m.SetBody("text/html", "<h1>Hola!</h1><p>El codigo de seguridad para acceder al sistema es 111111g.</p>")
+	body := fmt.Sprintf("<h1>Hola!</h1><p>El código de seguridad para acceder al sistema es %s.</p>", code)
+	m.SetBody("text/html", body)
 
 	// Configurar el servidor SMTP de Mandrill
 	//d := gomail.NewDialer("mail.drmonkey.co", 465, "email@drmonkey.co", "Admin4402!")
