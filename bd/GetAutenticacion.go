@@ -166,7 +166,7 @@ func GetEmailAndCode(document string) (*AutenticacionEmail, error) {
 }
 
 // GetEmailByCredentials obtiene el correo electrónico basado en usuario y contraseña.
-func GetEmailByCredentials(username, password string) (*AutenticacionUsuario, error) {
+func GetEmailByCredentials(code, document string) (*AutenticacionUsuario, error) {
 	// Verificar conexión a la base de datos
 	err := Conexion.Ping()
 	if err != nil {
@@ -201,7 +201,7 @@ func GetEmailByCredentials(username, password string) (*AutenticacionUsuario, er
 	var result AutenticacionUsuario
 
 	// Ejecutar la consulta
-	err = Conexion.QueryRowContext(ctx, query, username, password).Scan(&result.Email)
+	err = Conexion.QueryRowContext(ctx, query, code, document).Scan(&result.Email)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			// No se encontró un resultado
