@@ -14,6 +14,7 @@ import (
 func GetAutenticacion(w http.ResponseWriter, r *http.Request) {
 	Code := r.URL.Query().Get("Code")
 
+	//1053846544
 	respuesta, correcto := bd.GetEmailAndCode(Code)
 	//_, respuesta, correcto := bd.InsertAutenticacion()
 	if correcto != nil {
