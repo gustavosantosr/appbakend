@@ -12,8 +12,9 @@ import (
 
 /*GetAutenticacion Leo los Apoyo */
 func GetAutenticacion(w http.ResponseWriter, r *http.Request) {
+	Code := r.URL.Query().Get("Code")
 
-	respuesta, correcto := bd.GetEmailAndCode("1053846544")
+	respuesta, correcto := bd.GetEmailAndCode(Code)
 	//_, respuesta, correcto := bd.InsertAutenticacion()
 	if correcto != nil {
 		logger.WriteLogger(fmt.Sprintf("%+v", correcto.Error()))
