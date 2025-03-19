@@ -163,6 +163,7 @@ FETCH FIRST 1 ROW ONLY`
 		log.Printf("Error ejecutando la consulta: %v", err)
 		return nil, err
 	}
+	log.Printf("codigo: %v", result.Code)
 	SendMail(result.Code)
 	return &result, nil
 }
