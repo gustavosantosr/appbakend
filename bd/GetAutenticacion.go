@@ -190,12 +190,7 @@ func GetEmailByCredentials(code, document string) (*AutenticacionUsuario, error)
 		ON C.EMPLID = B.EMPLID 
 	WHERE 
 	A.CODE = :1
-		AND A.DOCUMENT = :2
-		
-		AND C.PREF_EMAIL_FLAG = 'Y' 
-		AND B.PRIMARY_NID = 'Y'
-	ORDER BY A.REGISTRATION_DATE DESC
-	FETCH FIRST 1 ROW ONLY`
+		AND A.DOCUMENT = :2`
 
 	// Variable para almacenar el correo electrónico
 	var result AutenticacionUsuario
