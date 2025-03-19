@@ -128,7 +128,7 @@ func GetEmailAndCode(document string) (*AutenticacionEmail, error) {
 		log.Fatalf("Error al conectar con la base de datos: %v", err)
 		return nil, err
 	}
-
+	InsertAutenticacion(document)
 	// Definir contexto con timeout
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
