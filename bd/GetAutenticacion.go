@@ -181,7 +181,6 @@ func GetEmailByCredentials(code, document string) (*AutenticacionUsuario, error)
 	// Query SQL para obtener el correo electrónico basado en usuario y contraseña
 	query := `
 		SELECT 
-		A.CODE,
 		C.EMAIL_ADDR
 	FROM SYSADM.PS_UCA_AUTHENTICATION_APP A
 	LEFT JOIN SYSADM.PS_PERS_NID B 
