@@ -189,8 +189,9 @@ func GetEmailByCredentials(username, password string) (*AutenticacionUsuario, er
 	LEFT JOIN SYSADM.PS_EMAIL_ADDRESSES C 
 		ON C.EMPLID = B.EMPLID 
 	WHERE 
-		A.DOCUMENT = :1
-		AND A.CODE = :2
+	A.CODE = :1
+		AND A.DOCUMENT = :2
+		
 		AND C.PREF_EMAIL_FLAG = 'Y' 
 		AND B.PRIMARY_NID = 'Y'
 	ORDER BY A.REGISTRATION_DATE DESC
