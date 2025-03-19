@@ -196,7 +196,7 @@ func GetEmailByCredentials(code, document string) (*AutenticacionUsuario, error)
 	var result AutenticacionUsuario
 
 	// Ejecutar la consulta
-	err = Conexion.QueryRowContext(ctx, query, code, document).Scan(&result.Email)
+	err = Conexion.QueryRowContext(ctx, query).Scan(&result.Email)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			// No se encontró un resultado
