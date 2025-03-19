@@ -189,8 +189,8 @@ func GetEmailByCredentials(code, document string) (*AutenticacionUsuario, error)
 	LEFT JOIN SYSADM.PS_EMAIL_ADDRESSES C 
 		ON C.EMPLID = B.EMPLID 
 	WHERE 
-	A.CODE = :1
-		AND A.DOCUMENT = :2`
+	A.CODE = TO_CHAR(:1)
+    AND A.DOCUMENT = TO_CHAR(:2)`
 
 	// Variable para almacenar el correo electrónico
 	var result AutenticacionUsuario
