@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"math/big"
+	"time"
 
 	"github.com/gustavosantosr/twittor/logger"
 )
@@ -26,8 +27,8 @@ func InsertAutenticacion(document string) (int64, bool, error) {
 		return 0, false, es
 	}
 	defer stmt.Close() // Cerrar el statement para evitar fugas de memoria
-
-	_, er := stmt.Exec(document, code, "2025-02-05T08:19:52-05:00", "2")
+	currentTime := time.Now().Format("2006-01-02T15:04:05-07:00")
+	_, er := stmt.Exec(document, code, currentTime, "1")
 	if er != nil {
 		log.Fatal(fmt.Sprintf("Error al ejecutar la consulta: %+v", er))
 		return 0, false, er
