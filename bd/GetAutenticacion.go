@@ -18,7 +18,7 @@ func GetAutenticacion() ([]*models.Autenticacion, error) {
 		logger.WriteLogger(fmt.Sprintf("%+v", err.Error()))
 		return nil, err
 	}
-	_, status, err := InsertAutenticacion()
+	///_, status, err := InsertAutenticacion()
 	if err != nil {
 		logger.WriteLogger(fmt.Sprintf("%+v", err.Error()))
 		logger.WriteLogger(fmt.Sprintf("%+v", status))
@@ -27,7 +27,7 @@ func GetAutenticacion() ([]*models.Autenticacion, error) {
 
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
-	InsertAutenticacion()
+	//InsertAutenticacion()
 	SendMail()
 
 	query := `
