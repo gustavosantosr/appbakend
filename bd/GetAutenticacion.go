@@ -34,7 +34,7 @@ func GetAutenticacion() ([]*models.Autenticacion, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 	//InsertAutenticacion()
-	SendMail()
+	//SendMail()
 
 	query := `
   SELECT * 
