@@ -181,21 +181,21 @@ func GetEmailByCredentials(code, document string) (*AutenticacionUsuario, error)
 	// Query SQL para obtener el correo electrónico basado en usuario y contraseña
 	query := `
 		SELECT 
-		C.EMAIL_ADDR
-	FROM SYSADM.PS_UCA_AUTHENTICATION_APP A
-	LEFT JOIN SYSADM.PS_PERS_NID B 
-		ON B.NATIONAL_ID = A.DOCUMENT
-	LEFT JOIN SYSADM.PS_EMAIL_ADDRESSES C 
-		ON C.EMPLID = B.EMPLID 
-	WHERE 
-    A.CODE = TO_CHAR('111111')
-    AND A.DOCUMENT = TO_CHAR('1053846544')`
+			C.EMAIL_ADDR
+		FROM SYSADM.PS_UCA_AUTHENTICATION_APP A
+		LEFT JOIN SYSADM.PS_PERS_NID B 
+			ON B.NATIONAL_ID = A.DOCUMENT
+		LEFT JOIN SYSADM.PS_EMAIL_ADDRESSES C 
+			ON C.EMPLID = B.EMPLID 
+		WHERE 
+			A.CODE = TO_CHAR(:1) 
+			AND A.DOCUMENT = TO_CHAR(:2)`
 
 	// Variable para almacenar el correo electrónico
 	var result AutenticacionUsuario
 
 	// Ejecutar la consulta
-	err = Conexion.QueryRowContext(ctx, query).Scan(&result.Email)
+	err = Conexion.QueryRowContext(ctx, query, code, document).Scan(&result.Email)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			// No se encontró un resultado
